@@ -41,7 +41,7 @@ jobs:
       # Attempt update injection on email and update result file
       - name: "Delete user with userId ${{steps.userDeleteId.outputs.prop}}"
         run: |
-          curl -v -X DELETE -d '{"userId": ${{steps.userDeleteId.outputs.prop}}} https://nsc-fun-dev-usw2-thursday.azurewebsites.net/api/users/${{steps.userDeleteId.outputs.prop}}' > test/security/sql-injection/delete-users-userid.json
+          curl -v -X DELETE -d '{"userId": ${{steps.userDeleteId.outputs.prop}}}' https://nsc-fun-dev-usw2-thursday.azurewebsites.net/api/users/${{steps.userDeleteId.outputs.prop}} > test/security/sql-injection/delete-users-userid.json
 
       # Check for userDeleteId in json result file
       - name: 'Check for userDeleteId deletion'
