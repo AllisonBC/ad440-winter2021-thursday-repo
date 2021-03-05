@@ -43,24 +43,6 @@ jobs:
         run: |
           curl -v -X DELETE -d '{"userId": ${{steps.userDeleteId.outputs.prop}}}' https://nsc-fun-dev-usw2-thursday.azurewebsites.net/api/users/${{steps.userDeleteId.outputs.prop}} > test/security/sql-injection/delete-users-userid.json
 
-      # Check for userDeleteId in json result file
-      - name: 'Make GET request for userDeleteId after delete attempt'
-        run: |
-          curl -s -H "Accept: application/json" https://nsc-fun-dev-usw2-thursday.azurewebsites.net/api/users/${{steps.userDeleteId.outputs.prop}} > test/security/sql-injection/delete-users-userid.json
-
-      # Retrieve GET results
-      - name: 'Check for userDeleteId deletion'
-        id: deletionCheck
-        uses: notiz-dev/github-action-json-property@release
-        with: 
-          path: test/security/sql-injection/delete-users-userid.json
-          prop_path: 'userId'
-
-      # Check for userDeleteId in json result file
-      - name: "User deletion confirmation"
-        if: ${{steps.deletionCheck.outputs.prop}} != ${{steps.userDeleteId.outputs.prop}}
-        run: echo "Deleted user " ${{steps.deletionCheck.outputs.prop}}
-
       # Check for userUpdateId email update in json result file
       - name: 'Get userUpdateteId email'
         run: |
