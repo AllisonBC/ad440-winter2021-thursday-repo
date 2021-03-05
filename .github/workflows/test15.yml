@@ -47,7 +47,7 @@ jobs:
       - name: 'Get userUpdateteId email'
         run: |
           curl -v https://nsc-fun-dev-usw2-thursday.azurewebsites.net/api/users/${{steps.userUpdateId.outputs.prop}} > test/security/sql-injection/delete-users-userid.json
-      - name: 'Retrieve email from GET request'
+      - name: 'Retrieve current email from GET request'
         id: getEmail
         uses: notiz-dev/github-action-json-property@release
         with: 
@@ -55,9 +55,9 @@ jobs:
           prop_path: 'email'
 
       # Use the output from above step
-      - name: "Compare email to original"
+      - name: "Compare current email to original"
         if: ${{steps.getEmail.outputs.prop}} == ${{ 'inject-update-email' }}
-        run: echo "Injection unsuccessful; email remains unaltered:"" ${{steps.getEmail.outputs.prop}} = "inject-update-email"}}" 
+        run: echo "Injection unsuccessful; email remains unaltered:"" ${{steps.getEmail.outputs.prop}} = ${{ 'inject-update-email' }}" 
 
       # Remove test results file
       - name: 'Remove Test Results File'
