@@ -46,7 +46,7 @@ jobs:
       # Check for userDeleteId in json result file
       - name: 'Make GET request for userDeleteId after delete attempt'
         run: |
-          curl -v -X GET https://nsc-fun-dev-usw2-thursday.azurewebsites.net/api/users/${{steps.userDeleteId.outputs.prop}} -H "Accept: application/json" > test/security/sql-injection/delete-users-userid.json
+          curl -v -H "Accept: application/json" https://nsc-fun-dev-usw2-thursday.azurewebsites.net/api/users/${{steps.userDeleteId.outputs.prop}} > test/security/sql-injection/delete-users-userid.json
 
       # Retrieve GET results
       - name: 'Check for userDeleteId deletion'
@@ -64,7 +64,7 @@ jobs:
       # Check for userUpdateId email update in json result file
       - name: 'Get userUpdateteId email'
         run: |
-          curl -v -X GET https://nsc-fun-dev-usw2-thursday.azurewebsites.net/api/users/${{steps.userUpdateId.outputs.prop}} > test/security/sql-injection/delete-users-userid.json
+          curl -v https://nsc-fun-dev-usw2-thursday.azurewebsites.net/api/users/${{steps.userUpdateId.outputs.prop}} > test/security/sql-injection/delete-users-userid.json
       - name: 'Retrieve email from GET request'
         id: getEmail
         uses: notiz-dev/github-action-json-property@release
