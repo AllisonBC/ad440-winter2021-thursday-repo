@@ -56,7 +56,7 @@ jobs:
 
       # Use the output from above step
       - name: "Compare email to original"
-        if: ${{steps.getEmail.outputs.prop}} == "inject-update-email"}}
+        if: ${{steps.getEmail.outputs.prop}} == ${{ 'inject-update-email' }}
         run: echo "Injection unsuccessful; email remains unaltered:"" ${{steps.getEmail.outputs.prop}} = "inject-update-email"}}" 
 
       # Remove test results file
